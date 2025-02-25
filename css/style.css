@@ -1,0 +1,60 @@
+* {
+    font-family: Inter, sans-serif;
+    color: var(--color);
+    box-sizing: border-box;
+
+    --accent: #217a00;
+    --background: #282828;
+    --color: #dac8a2;
+    --color-discret: #44403d;
+}
+
+a, button {
+    cursor: pointer;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
+    background: var(--background);
+}
+
+#game {
+    border: 1px solid var(--color-discret);
+    border-radius: 10px;
+    aspect-ratio: 1920 / 1080;
+    max-width: 60%;
+    width: 60%;
+    background-color: grey;
+}
+
+#country-input {
+    margin: 10px;
+    display: grid;
+    max-width: 60%;
+    width: 60%;
+    grid-template-columns: auto 0fr;
+    gap: 0;
+}
+
+#country-input input {
+    border: 1px solid var(--color-discret);
+    border-right: none;
+    padding: 10px 20px;
+    border-radius: 10px 0 0 10px;
+    font-size: 1rem;
+    background-color: transparent;
+}
+
+#country-input button {
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 20px;
+    border-radius: 0 10px 10px 0;
+    font-size: 1rem;
+    background-color: transparent;
+}
