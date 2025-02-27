@@ -1,5 +1,5 @@
 const canvas = document.querySelector('#game');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
 canvas.width = 1920;
 canvas.height = 1080;
 
@@ -26,6 +26,13 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const ratio = canvas.width / indices_sprite.width;
     ctx.drawImage(indices_sprite, posX, posY, indices_sprite.width * size * ratio, indices_sprite.height * size * ratio);
+
+    // get country
+    const c = ctx.getImageData(mouseX, mouseY, 1, 1).data;
+    const countryIndex = Math.round((c[2] * 256 * 256 + c[1] * 256 + c[0]) / 100);
+    selectedCountry = getCountry(countryIndex);
+
+    requestAnimationFrame(draw);
 }
 
 canvas.addEventListener('mousemove', (e) => {
@@ -36,7 +43,6 @@ canvas.addEventListener('mousemove', (e) => {
     if (scrolling) {
         posX = mouseX - scrollStartX;
         posY = mouseY - scrollStartY;
-        draw();
     }
 });
 
