@@ -3,9 +3,11 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1920;
 canvas.height = 1080;
 
+const ZOOM_SIZE = 0.06;
+
 let posX = 0;
 let posY = 0;
-let size = 0.5;
+let size = 1;
 
 let mouseX = 0;
 let mouseY = 0;
@@ -22,7 +24,8 @@ indices_sprite.onload = ((e) => {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(indices_sprite, posX, posY, indices_sprite.width * size, indices_sprite.height * size);
+    const ratio = canvas.width / indices_sprite.width;
+    ctx.drawImage(indices_sprite, posX, posY, indices_sprite.width * size * ratio, indices_sprite.height * size * ratio);
 }
 
 canvas.addEventListener('mousemove', (e) => {
@@ -45,4 +48,16 @@ canvas.addEventListener('mousedown', (e) => {
 
 canvas.addEventListener('mouseup', (e) => {
     scrolling = false;
+});
+
+canvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const _zoomSize = ZOOM_SIZE * size
+    const dir = -e.deltaY / 100;
+    const x = (mouseX - posX) / size;
+    const y = (mouseY - posY) / size;
+    posX -= _zoomSize * dir * x;
+    posY -= _zoomSize * dir * y;
+    size += dir * _zoomSize;
+    draw();
 });
